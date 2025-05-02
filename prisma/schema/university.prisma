@@ -1,0 +1,61 @@
+// Университет
+model University {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  description String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  buildings       Building[]
+  post_categories PostCategory[]
+}
+
+// Учебный корпус
+model Building {
+  id            Int @id @default(autoincrement())
+  university_id Int
+
+  name    String
+  address String
+
+  description String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  floors Floor[]
+
+  university University @relation(fields: [university_id], references: [id])
+}
+
+// Этаж учебного корпуса
+model Floor {
+  id          Int @id @default(autoincrement())
+  building_id Int
+
+  name        String
+  description String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  rooms Room[]
+
+  building Building @relation(fields: [building_id], references: [id])
+}
+
+// Аудитория на этаже учебного корпуса
+model Room {
+  id       Int @id @default(autoincrement())
+  floor_id Int
+
+  name        String
+  description String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  floor Floor @relation(fields: [floor_id], references: [id])
+}
