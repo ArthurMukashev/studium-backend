@@ -9,7 +9,7 @@ model PostCategory {
 
   posts Post[]
 
-  university University @relation(fields: [university_id], references: [id])
+  university University @relation(fields: [university_id], references: [id], onDelete: Cascade)
 }
 
 model Post {
@@ -19,10 +19,14 @@ model Post {
 
   name        String
   description String
+  file        String
+
+  pub_date     DateTime
+  is_published Boolean
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  author   User         @relation(fields: [author_id], references: [id])
-  category PostCategory @relation(fields: [category_id], references: [id])
+  author   User         @relation(fields: [author_id], references: [id], onDelete: Cascade)
+  category PostCategory @relation(fields: [category_id], references: [id], onDelete: Cascade)
 }

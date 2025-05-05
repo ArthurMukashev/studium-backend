@@ -1,7 +1,7 @@
 // Университет
 model University {
   id   Int    @id @default(autoincrement())
-  name String
+  name String @unique
 
   description String?
 
@@ -9,7 +9,22 @@ model University {
   updated_at DateTime @updatedAt
 
   buildings       Building[]
+  employers       Employer[]
+  facculties      Facculty[]
   post_categories PostCategory[]
+}
+
+// Факультет
+model Facculty {
+  id            Int    @id @default(autoincrement())
+  university_id Int
+  name          String
+  short_name    String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  university University @relation(fields: [university_id], references: [id], onDelete: Cascade)
 }
 
 // Учебный корпус
@@ -27,7 +42,7 @@ model Building {
 
   floors Floor[]
 
-  university University @relation(fields: [university_id], references: [id])
+  university University @relation(fields: [university_id], references: [id], onDelete: Cascade)
 }
 
 // Этаж учебного корпуса
@@ -43,7 +58,7 @@ model Floor {
 
   rooms Room[]
 
-  building Building @relation(fields: [building_id], references: [id])
+  building Building @relation(fields: [building_id], references: [id], onDelete: Cascade)
 }
 
 // Аудитория на этаже учебного корпуса
@@ -57,5 +72,5 @@ model Room {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  floor Floor @relation(fields: [floor_id], references: [id])
+  floor Floor @relation(fields: [floor_id], references: [id], onDelete: Cascade)
 }
