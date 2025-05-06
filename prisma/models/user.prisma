@@ -13,22 +13,26 @@ model User {
   updated_at DateTime @updatedAt
 
   employers Employer[]
-  posts     Post[]
 }
 
 // Сотрудник
 model Employer {
-  id            Int @id @default(autoincrement())
-  user_id       Int
-  university_id Int
-  role_id       Int
+  id              Int @id @default(autoincrement())
+  user_id         Int
+  organization_id Int
+  role_id         Int
+
+  department_id Int?
+  position_id   Int?
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  role       Role       @relation(fields: [role_id], references: [id])
-  university University @relation(fields: [university_id], references: [id])
-  user       User       @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  role         Role         @relation(fields: [role_id], references: [id], onDelete: Cascade)
+  organization Organization @relation(fields: [organization_id], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  department   Department?  @relation(fields: [department_id], references: [id], onDelete: SetNull)
+  position     Position?    @relation(fields: [position_id], references: [id], onDelete: SetNull)
 }
 
 model Role {
@@ -45,18 +49,9 @@ enum RoleType {
   // Администратор
   ADMIN
 
-  // Модератор (декан, зам декана)
+  // Модератор
   MODERATOR
 
-  // Преподаватель
-  TEACHER
-
-  // Староста
-  STUDENT_PLUS
-
-  // Студент
-  STUDENT
-
-  // Персонал
-  STAFF
+  // Пользователь
+  USER
 }

@@ -1,17 +1,19 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AdminRoutingModule, AppRoutingModule, ClientRoutingModule, ServiceRoutingModule } from '@/modules';
-import { PrismaModule, LoggerModule } from '@/common';
+import { JwtAuthModule, LoggerModule, PrismaModule } from '@/common';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     LoggerModule,
     PrismaModule,
+    JwtAuthModule,
     AppRoutingModule,
-    ClientRoutingModule,
     AdminRoutingModule,
+    ClientRoutingModule,
     ServiceRoutingModule,
   ],
+  providers: [],
 })
 export class AppModule {}

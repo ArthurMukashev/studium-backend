@@ -34,7 +34,13 @@ export default tseslint.config(
       '@typescript-eslint/no-unused-vars': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/strict-boolean-expressions': 'error',
-      '@typescript-eslint/consistent-type-imports': 'off',
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        {
+          prefer: 'type-imports',
+          fixStyle: 'separate-type-imports',
+        },
+      ],
       '@typescript-eslint/no-floating-promises': 'off',
       '@typescript-eslint/no-misused-promises': 'off',
       '@typescript-eslint/explicit-function-return-type': 'off',

@@ -1,5 +1,6 @@
-import { INestApplication } from '@nestjs/common';
-import { DocumentBuilder, SwaggerCustomOptions, SwaggerDocumentOptions, SwaggerModule } from '@nestjs/swagger';
+import type { INestApplication } from '@nestjs/common';
+import type { SwaggerCustomOptions, SwaggerDocumentOptions } from '@nestjs/swagger';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppRoutingModule, AdminRoutingModule, ClientRoutingModule, ServiceRoutingModule } from '@/modules';
 
 export function setupSwagger(app: INestApplication) {

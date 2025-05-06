@@ -2,84 +2,53 @@
 //// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 //// ------------------------------------------------------
 
-Table PostCategory {
+Table Organization {
   id Int [pk, increment]
-  university_id Int [not null]
-  name String [unique, not null]
+  name String [not null]
+  inn String [unique, not null]
+  description String
+  avatar String
   created_at DateTime [default: `now()`, not null]
   updated_at DateTime [not null]
+  employers Employer [not null]
   posts Post [not null]
-  university University [not null]
+  departments Department [not null]
+  positions Position [not null]
 }
 
 Table Post {
   id Int [pk, increment]
-  category_id Int [not null]
-  author_id Int [not null]
+  organization_id Int [not null]
+  is_published Boolean [not null, default: false]
+  title String [not null]
+  content String
+  pub_date DateTime
+  file String
+  created_at DateTime [default: `now()`, not null]
+  updated_at DateTime [not null]
+  organization Organization [not null]
+}
+
+Table Department {
+  id Int [pk, increment]
+  organization_id Int [not null]
   name String [not null]
   description String [not null]
-  file String [not null]
-  pub_date DateTime [not null]
-  is_published Boolean [not null]
   created_at DateTime [default: `now()`, not null]
   updated_at DateTime [not null]
-  author User [not null]
-  category PostCategory [not null]
-}
-
-Table University {
-  id Int [pk, increment]
-  name String [unique, not null]
-  description String
-  created_at DateTime [default: `now()`, not null]
-  updated_at DateTime [not null]
-  buildings Building [not null]
   employers Employer [not null]
-  facculties Facculty [not null]
-  post_categories PostCategory [not null]
+  organization Organization [not null]
 }
 
-Table Facculty {
+Table Position {
   id Int [pk, increment]
-  university_id Int [not null]
+  organization_id Int [not null]
   name String [not null]
-  short_name String [not null]
+  description String [not null]
   created_at DateTime [default: `now()`, not null]
   updated_at DateTime [not null]
-  university University [not null]
-}
-
-Table Building {
-  id Int [pk, increment]
-  university_id Int [not null]
-  name String [not null]
-  address String [not null]
-  description String
-  created_at DateTime [default: `now()`, not null]
-  updated_at DateTime [not null]
-  floors Floor [not null]
-  university University [not null]
-}
-
-Table Floor {
-  id Int [pk, increment]
-  building_id Int [not null]
-  name String [not null]
-  description String
-  created_at DateTime [default: `now()`, not null]
-  updated_at DateTime [not null]
-  rooms Room [not null]
-  building Building [not null]
-}
-
-Table Room {
-  id Int [pk, increment]
-  floor_id Int [not null]
-  name String [not null]
-  description String
-  created_at DateTime [default: `now()`, not null]
-  updated_at DateTime [not null]
-  floor Floor [not null]
+  employers Employer [not null]
+  organization Organization [not null]
 }
 
 Table User {
@@ -93,19 +62,22 @@ Table User {
   created_at DateTime [default: `now()`, not null]
   updated_at DateTime [not null]
   employers Employer [not null]
-  posts Post [not null]
 }
 
 Table Employer {
   id Int [pk, increment]
   user_id Int [not null]
-  university_id Int [not null]
+  organization_id Int [not null]
   role_id Int [not null]
+  department_id Int
+  position_id Int
   created_at DateTime [default: `now()`, not null]
   updated_at DateTime [not null]
   role Role [not null]
-  university University [not null]
+  organization Organization [not null]
   user User [not null]
+  department Department
+  position Position
 }
 
 Table Role {
@@ -119,28 +91,21 @@ Table Role {
 Enum RoleType {
   ADMIN
   MODERATOR
-  TEACHER
-  STUDENT_PLUS
-  STUDENT
-  STAFF
+  USER
 }
 
-Ref: PostCategory.university_id > University.id [delete: Cascade]
+Ref: Post.organization_id > Organization.id [delete: Cascade]
 
-Ref: Post.author_id > User.id [delete: Cascade]
+Ref: Department.organization_id > Organization.id [delete: Cascade]
 
-Ref: Post.category_id > PostCategory.id [delete: Cascade]
+Ref: Position.organization_id > Organization.id [delete: Cascade]
 
-Ref: Facculty.university_id > University.id [delete: Cascade]
+Ref: Employer.role_id > Role.id [delete: Cascade]
 
-Ref: Building.university_id > University.id [delete: Cascade]
-
-Ref: Floor.building_id > Building.id [delete: Cascade]
-
-Ref: Room.floor_id > Floor.id [delete: Cascade]
-
-Ref: Employer.role_id > Role.id
-
-Ref: Employer.university_id > University.id
+Ref: Employer.organization_id > Organization.id [delete: Cascade]
 
 Ref: Employer.user_id > User.id [delete: Cascade]
+
+Ref: Employer.department_id > Department.id [delete: Set Null]
+
+Ref: Employer.position_id > Position.id [delete: Set Null]

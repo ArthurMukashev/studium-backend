@@ -11,7 +11,7 @@ export class AuthController {
   @Post('register')
   @ApiOperation({ summary: 'Регистрация в системе' })
   register(@Body() dto: RegisterDto, @Res({ passthrough: true }) res: Response) {
-    return this.authService.register({ dto, res });
+    this.authService.register({ dto, res });
   }
 
   @Post('login')
