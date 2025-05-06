@@ -3,18 +3,18 @@ import { Module } from '@nestjs/common';
 import { AuthModule } from './auth';
 
 const routes: Routes = [
-	{
-		path: '',
-		children: [
-			{
-				path: 'auth',
-				module: AuthModule,
-			},
-		],
-	},
+  {
+    path: '',
+    children: [
+      {
+        path: 'auth',
+        module: AuthModule,
+      },
+    ],
+  },
 ];
 
 @Module({
-	imports: [RouterModule.register(routes), AuthModule],
+  imports: [RouterModule.register(routes), AuthModule],
 })
 export class AppRoutingModule {}

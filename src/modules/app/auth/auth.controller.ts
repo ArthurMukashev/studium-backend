@@ -6,23 +6,23 @@ import { AuthService } from './auth.service';
 
 @Controller()
 export class AuthController {
-	constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) {}
 
-	@Post('register')
-	@ApiOperation({ summary: 'Регистрация в системе' })
-	register(@Body() dto: RegisterDto, @Res({ passthrough: true }) res: Response) {
-		return this.authService.register({ dto, res });
-	}
+  @Post('register')
+  @ApiOperation({ summary: 'Регистрация в системе' })
+  register(@Body() dto: RegisterDto, @Res({ passthrough: true }) res: Response) {
+    return this.authService.register({ dto, res });
+  }
 
-	@Post('login')
-	@ApiOperation({ summary: 'Вход в систему' })
-	login() {}
+  @Post('login')
+  @ApiOperation({ summary: 'Вход в систему' })
+  login() {}
 
-	@Post('forgot-password')
-	@ApiOperation({ summary: 'Забыл пароль' })
-	forgotPassword() {}
+  @Post('forgot-password')
+  @ApiOperation({ summary: 'Забыл пароль' })
+  forgotPassword() {}
 
-	@Get('logout')
-	@ApiOperation({ summary: 'Выход из системы' })
-	logout() {}
+  @Get('logout')
+  @ApiOperation({ summary: 'Выход из системы' })
+  logout() {}
 }

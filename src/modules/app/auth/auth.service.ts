@@ -5,11 +5,11 @@ import { RegisterDto } from './dto';
 
 @Injectable()
 export class AuthService {
-	constructor(private logger: MyLogger) {
-		this.logger.setContext(AuthService.name);
-	}
+  constructor(private logger: MyLogger) {
+    this.logger.setContext(AuthService.name);
+  }
 
-	register({ dto, res }: { dto: RegisterDto; res: Response }) {
-		this.logger.verbose(`Регистрация нового пользователя: ${dto.email}`);
-	}
+  register({ dto, res }: { dto: RegisterDto; res: Response }) {
+    this.logger.verbose(`Регистрация нового пользователя: ${dto.email}`);
+  }
 }

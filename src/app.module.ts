@@ -4,14 +4,14 @@ import { AdminRoutingModule, AppRoutingModule, ClientRoutingModule, ServiceRouti
 import { PrismaModule, LoggerModule } from '@/common';
 
 @Module({
-	imports: [
-		ConfigModule.forRoot({ isGlobal: true }),
-		LoggerModule,
-		PrismaModule,
-		AppRoutingModule,
-		ClientRoutingModule,
-		AdminRoutingModule,
-		ServiceRoutingModule,
-	],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    LoggerModule,
+    PrismaModule,
+    AppRoutingModule,
+    ClientRoutingModule,
+    AdminRoutingModule,
+    ServiceRoutingModule,
+  ],
 })
 export class AppModule {}

@@ -1,40 +1,61 @@
-// @ts-check
-import eslint from '@eslint/js';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
-import globals from 'globals';
+import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
+import eslintPluginPrettier from 'eslint-plugin-prettier';
 
 export default tseslint.config(
-	{
-		ignores: ['eslint.config.mjs'],
-	},
-	eslint.configs.recommended,
-	...tseslint.configs.recommendedTypeChecked,
-	eslintPluginPrettierRecommended,
-	{
-		languageOptions: {
-			globals: {
-				...globals.node,
-				...globals.jest,
-			},
-			ecmaVersion: 5,
-			sourceType: 'module',
-			parserOptions: {
-				projectService: true,
-				tsconfigRootDir: import.meta.dirname,
-			},
-		},
-	},
-	{
-		rules: {
-			'@typescript-eslint/no-explicit-any': 'off',
-			'@typescript-eslint/no-floating-promises': 'off',
-			'@typescript-eslint/no-unsafe-argument': 'off',
-			'@typescript-eslint/no-unsafe-return': 'off',
-			'@typescript-eslint/no-unsafe-assignment': 'off',
-			'@typescript-eslint/no-unsafe-function-type': 'off',
-			'@typescript-eslint/no-unsafe-member-access': 'off',
-			'@typescript-eslint/no-unsafe-call': 'off',
-		},
-	},
+  {
+    ignores: ['dist', 'node_modules', 'coverage', '.eslintrc.*'],
+  },
+  {
+    files: ['**/*.ts'],
+    plugins: {
+      '@typescript-eslint': tseslint.plugin,
+      prettier: eslintPluginPrettier,
+    },
+    extends: [
+      js.configs.recommended,
+      ...tseslint.configs.recommended,
+      ...tseslint.configs.strictTypeChecked,
+      ...tseslint.configs.stylisticTypeChecked,
+    ],
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        project: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    rules: {
+      // Base ESLint rules
+      'no-console': 'off',
+      'no-unused-vars': 'off',
+
+      // TypeScript rules
+      '@typescript-eslint/no-unused-vars': 'error',
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/strict-boolean-expressions': 'error',
+      '@typescript-eslint/consistent-type-imports': 'off',
+      '@typescript-eslint/no-floating-promises': 'off',
+      '@typescript-eslint/no-misused-promises': 'off',
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/use-unknown-in-catch-callback-variable': 'off',
+      '@typescript-eslint/no-extraneous-class': 'off',
+
+      // NestJS specific custom rules
+      'class-methods-use-this': 'off',
+      'max-classes-per-file': 'off',
+
+      // Prettier integration
+      'prettier/prettier': 'error',
+    },
+  },
+  {
+    files: ['**/*.spec.ts', '**/*.test.ts'],
+    rules: {
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/unbound-method': 'off',
+    },
+  },
 );

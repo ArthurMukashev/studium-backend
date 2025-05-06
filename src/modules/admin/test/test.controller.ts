@@ -6,31 +6,31 @@ import { ApiOperation } from '@nestjs/swagger';
 
 @Controller()
 export class TestController {
-	constructor(private readonly testService: TestService) {}
+  constructor(private readonly testService: TestService) {}
 
-	@Post()
-	@ApiOperation({ summary: 'test admin' })
-	create(@Body() createTestDto: CreateTestDto) {
-		return this.testService.create(createTestDto);
-	}
+  @Post()
+  @ApiOperation({ summary: 'test admin' })
+  create(@Body() createTestDto: CreateTestDto) {
+    return this.testService.create(createTestDto);
+  }
 
-	@Get()
-	findAll() {
-		return this.testService.findAll();
-	}
+  @Get()
+  findAll() {
+    return this.testService.findAll();
+  }
 
-	@Get(':id')
-	findOne(@Param('id') id: string) {
-		return this.testService.findOne(+id);
-	}
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.testService.findOne(+id);
+  }
 
-	@Patch(':id')
-	update(@Param('id') id: string, @Body() updateTestDto: UpdateTestDto) {
-		return this.testService.update(+id, updateTestDto);
-	}
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateTestDto: UpdateTestDto) {
+    return this.testService.update(+id, updateTestDto);
+  }
 
-	@Delete(':id')
-	remove(@Param('id') id: string) {
-		return this.testService.remove(+id);
-	}
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.testService.remove(+id);
+  }
 }

@@ -6,20 +6,20 @@ import { setupSwagger } from '@/lib';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-	const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule);
 
-	const config = app.get<ConfigService>(ConfigService);
-	const PORT = config.get<number>('PORT');
+  const config = app.get<ConfigService>(ConfigService);
+  const PORT = config.get<number>('PORT');
 
-	app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
-	app.useLogger(new MyLogger({ prefix: 'APP', timestamp: true }));
+  app.useLogger(new MyLogger({ prefix: 'APP', timestamp: true }));
 
-	app.enableCors({ origin: true, credentials: true });
+  app.enableCors({ origin: true, credentials: true });
 
-	setupSwagger(app);
+  setupSwagger(app);
 
-	await app.listen(PORT ?? 9000);
+  await app.listen(PORT ?? 9000);
 }
 
 bootstrap().then().finally();

@@ -1,0 +1,146 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table PostCategory {
+  id Int [pk, increment]
+  university_id Int [not null]
+  name String [unique, not null]
+  created_at DateTime [default: `now()`, not null]
+  updated_at DateTime [not null]
+  posts Post [not null]
+  university University [not null]
+}
+
+Table Post {
+  id Int [pk, increment]
+  category_id Int [not null]
+  author_id Int [not null]
+  name String [not null]
+  description String [not null]
+  file String [not null]
+  pub_date DateTime [not null]
+  is_published Boolean [not null]
+  created_at DateTime [default: `now()`, not null]
+  updated_at DateTime [not null]
+  author User [not null]
+  category PostCategory [not null]
+}
+
+Table University {
+  id Int [pk, increment]
+  name String [unique, not null]
+  description String
+  created_at DateTime [default: `now()`, not null]
+  updated_at DateTime [not null]
+  buildings Building [not null]
+  employers Employer [not null]
+  facculties Facculty [not null]
+  post_categories PostCategory [not null]
+}
+
+Table Facculty {
+  id Int [pk, increment]
+  university_id Int [not null]
+  name String [not null]
+  short_name String [not null]
+  created_at DateTime [default: `now()`, not null]
+  updated_at DateTime [not null]
+  university University [not null]
+}
+
+Table Building {
+  id Int [pk, increment]
+  university_id Int [not null]
+  name String [not null]
+  address String [not null]
+  description String
+  created_at DateTime [default: `now()`, not null]
+  updated_at DateTime [not null]
+  floors Floor [not null]
+  university University [not null]
+}
+
+Table Floor {
+  id Int [pk, increment]
+  building_id Int [not null]
+  name String [not null]
+  description String
+  created_at DateTime [default: `now()`, not null]
+  updated_at DateTime [not null]
+  rooms Room [not null]
+  building Building [not null]
+}
+
+Table Room {
+  id Int [pk, increment]
+  floor_id Int [not null]
+  name String [not null]
+  description String
+  created_at DateTime [default: `now()`, not null]
+  updated_at DateTime [not null]
+  floor Floor [not null]
+}
+
+Table User {
+  id Int [pk, increment]
+  email String [not null]
+  password String [not null]
+  is_superadmin Boolean [not null, default: false]
+  name String
+  surname String
+  patroname String
+  created_at DateTime [default: `now()`, not null]
+  updated_at DateTime [not null]
+  employers Employer [not null]
+  posts Post [not null]
+}
+
+Table Employer {
+  id Int [pk, increment]
+  user_id Int [not null]
+  university_id Int [not null]
+  role_id Int [not null]
+  created_at DateTime [default: `now()`, not null]
+  updated_at DateTime [not null]
+  role Role [not null]
+  university University [not null]
+  user User [not null]
+}
+
+Table Role {
+  id Int [pk, increment]
+  name RoleType [unique, not null]
+  created_at DateTime [default: `now()`, not null]
+  updated_at DateTime [not null]
+  employers Employer [not null]
+}
+
+Enum RoleType {
+  ADMIN
+  MODERATOR
+  TEACHER
+  STUDENT_PLUS
+  STUDENT
+  STAFF
+}
+
+Ref: PostCategory.university_id > University.id [delete: Cascade]
+
+Ref: Post.author_id > User.id [delete: Cascade]
+
+Ref: Post.category_id > PostCategory.id [delete: Cascade]
+
+Ref: Facculty.university_id > University.id [delete: Cascade]
+
+Ref: Building.university_id > University.id [delete: Cascade]
+
+Ref: Floor.building_id > Building.id [delete: Cascade]
+
+Ref: Room.floor_id > Floor.id [delete: Cascade]
+
+Ref: Employer.role_id > Role.id
+
+Ref: Employer.university_id > University.id
+
+Ref: Employer.user_id > User.id [delete: Cascade]
