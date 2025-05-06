@@ -13,7 +13,31 @@
     "paths": {
       "@/*": [
         "src/*"
-      ]
+      ],
+      "@common/": [
+        "src/common/*"
+      ],
+      "@constants/": [
+        "src/constants/*"
+      ],
+      "@decorators/": [
+        "src/decorators/*"
+      ],
+      "@guards/": [
+        "src/guards/*"
+      ],
+      "@lib/": [
+        "src/lib/*"
+      ],
+      "@middlewares/": [
+        "src/middlewares/*"
+      ],
+      "@modules/": [
+        "src/modules/*"
+      ],
+      "@types/": [
+        "src/types/*"
+      ],
     },
     "incremental": true,
     "skipLibCheck": true,
