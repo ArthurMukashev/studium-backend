@@ -37,7 +37,7 @@ export function setupSwagger(app: INestApplication) {
   };
 
   for (const docUrl of docUrls) {
-    const config = new DocumentBuilder().setTitle(`${docUrl.name} API`).build();
+    const config = new DocumentBuilder().setTitle(docUrl.name).setDescription(`${docUrl.name} API`).build();
     const documentOptions: SwaggerDocumentOptions = {
       deepScanRoutes: true,
       include: [docUrl.router],

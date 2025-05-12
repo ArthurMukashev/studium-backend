@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "resource-schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Resource name",
+      "x-prompt": "Введите имя ресурса:"
+    },
+    "layer": {
+      "type": "string",
+      "description": "Target layer",
+      "enum": [
+        "app",
+        "service",
+        "client",
+        "admin"
+      ],
+      "x-prompt": {
+        "message": "Выберите слой развертывания:",
+        "type": "list",
+        "items": [
+          {
+            "value": "app",
+            "label": "Слой приложения (src/app)"
+          },
+          {
+            "value": "service",
+            "label": "Сервисный слой (src/service)"
+          },
+          {
+            "value": "client",
+            "label": "Клиентский слой (src/client)"
+          },
+          {
+            "value": "admin",
+            "label": "Слой администрирования (src/admin)"
+          }
+        ]
+      }
+    }
+  },
+  "required": [
+    "name",
+    "layer"
+  ]
+}

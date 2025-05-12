@@ -1,0 +1,7 @@
+import { Injectable } from '@nestjs/common';
+import { BaseRepository } from '@/common';
+
+
+@Injectable()
+export class <%= classify(name) %>Repository extends BaseRepository {
+}

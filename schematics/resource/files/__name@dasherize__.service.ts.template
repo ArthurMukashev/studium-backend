@@ -1,0 +1,13 @@
+import { Injectable } from '@nestjs/common';
+import { MyLogger } from '@/common';
+import { <%= classify(name) %>Repository } from './<%= dasherize(name) %>.repository';
+
+@Injectable()
+export class <%= classify(name) %>Service {
+  constructor(
+    private readonly <%= camelize(name) %>Repository: <%= classify(name) %>Repository,
+    private logger: MyLogger,
+  ) {
+      this.logger.setContext(<%= classify(name) %>Service.name);
+  }
+}

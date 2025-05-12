@@ -2,57 +2,9 @@
 //// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 //// ------------------------------------------------------
 
-Table Organization {
-  id Int [pk, increment]
-  name String [not null]
-  inn String [unique, not null]
-  description String
-  avatar String
-  created_at DateTime [default: `now()`, not null]
-  updated_at DateTime [not null]
-  employers Employer [not null]
-  posts Post [not null]
-  departments Department [not null]
-  positions Position [not null]
-}
-
-Table Post {
-  id Int [pk, increment]
-  organization_id Int [not null]
-  is_published Boolean [not null, default: false]
-  title String [not null]
-  content String
-  pub_date DateTime
-  file String
-  created_at DateTime [default: `now()`, not null]
-  updated_at DateTime [not null]
-  organization Organization [not null]
-}
-
-Table Department {
-  id Int [pk, increment]
-  organization_id Int [not null]
-  name String [not null]
-  description String [not null]
-  created_at DateTime [default: `now()`, not null]
-  updated_at DateTime [not null]
-  employers Employer [not null]
-  organization Organization [not null]
-}
-
-Table Position {
-  id Int [pk, increment]
-  organization_id Int [not null]
-  name String [not null]
-  description String [not null]
-  created_at DateTime [default: `now()`, not null]
-  updated_at DateTime [not null]
-  employers Employer [not null]
-  organization Organization [not null]
-}
-
 Table User {
   id Int [pk, increment]
+  role_id Int [not null]
   email String [not null]
   password String [not null]
   is_superadmin Boolean [not null, default: false]
@@ -61,23 +13,7 @@ Table User {
   patroname String
   created_at DateTime [default: `now()`, not null]
   updated_at DateTime [not null]
-  employers Employer [not null]
-}
-
-Table Employer {
-  id Int [pk, increment]
-  user_id Int [not null]
-  organization_id Int [not null]
-  role_id Int [not null]
-  department_id Int
-  position_id Int
-  created_at DateTime [default: `now()`, not null]
-  updated_at DateTime [not null]
   role Role [not null]
-  organization Organization [not null]
-  user User [not null]
-  department Department
-  position Position
 }
 
 Table Role {
@@ -85,7 +21,7 @@ Table Role {
   name RoleType [unique, not null]
   created_at DateTime [default: `now()`, not null]
   updated_at DateTime [not null]
-  employers Employer [not null]
+  users User [not null]
 }
 
 Enum RoleType {
@@ -94,18 +30,4 @@ Enum RoleType {
   USER
 }
 
-Ref: Post.organization_id > Organization.id [delete: Cascade]
-
-Ref: Department.organization_id > Organization.id [delete: Cascade]
-
-Ref: Position.organization_id > Organization.id [delete: Cascade]
-
-Ref: Employer.role_id > Role.id [delete: Cascade]
-
-Ref: Employer.organization_id > Organization.id [delete: Cascade]
-
-Ref: Employer.user_id > User.id [delete: Cascade]
-
-Ref: Employer.department_id > Department.id [delete: Set Null]
-
-Ref: Employer.position_id > Position.id [delete: Set Null]
+Ref: User.role_id > Role.id

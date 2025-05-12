@@ -5,10 +5,10 @@ export class RegisterDto {
   @IsEmail()
   @IsNotEmpty()
   @ApiProperty()
-  email: string | undefined;
+  email: string;
 
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
-  password: string | undefined;
+  password: string;
 }

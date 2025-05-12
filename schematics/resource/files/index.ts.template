@@ -1,0 +1,5 @@
+export * from './<%= dasherize(name) %>.module';
+export * from './<%= dasherize(name) %>.service';
+export * from './<%= dasherize(name) %>.controller';
+export * from './<%= dasherize(name) %>.repository';
+

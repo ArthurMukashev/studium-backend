@@ -1,3 +1,4 @@
+import * as cookieParser from 'cookie-parser';
 import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
@@ -12,9 +13,9 @@ async function bootstrap() {
   const PORT = config.get<number>('PORT');
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
-
   app.useLogger(new MyLogger({ prefix: 'APP', timestamp: true }));
 
+  app.use(cookieParser());
   app.enableCors({ origin: true, credentials: true });
 
   setupSwagger(app);
@@ -22,4 +23,8 @@ async function bootstrap() {
   await app.listen(PORT ?? 9000);
 }
 
-bootstrap().then().finally();
+bootstrap()
+  .then(() => {
+    new MyLogger({ context: 'APP' }).debug(`APP STARTED ON PORT ${process.env.PORT ?? 9000}`);
+  })
+  .finally();

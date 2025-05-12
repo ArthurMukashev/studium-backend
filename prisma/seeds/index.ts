@@ -1,8 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { BCRYPT_HASH_ROUNDS } from '../../src/constants';
-import seedOrganizations from './seedOrganizations';
-import seedUsers from './seedUsers';
 import seedRoles from './seedRoles';
+import seedUsers from './seedUsers';
 
 const prisma = new PrismaClient();
 
@@ -11,11 +10,8 @@ async function main(): Promise<void> {
   await seedRoles(prisma);
 
   if (process.env.NODE_ENV === 'development') {
-    console.log('Сидинг организаций...');
-    await seedOrganizations(prisma);
-
     console.log('Сидинг пользователей...');
-    // await seedUsers(prisma, BCRYPT_HASH_ROUNDS);
+    await seedUsers(prisma, BCRYPT_HASH_ROUNDS);
   }
 }
 

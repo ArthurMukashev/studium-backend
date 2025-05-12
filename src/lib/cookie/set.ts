@@ -1,5 +1,5 @@
 import type { CookieOptions, Response as ExpressResponse } from 'express';
-import { ACCESS_TOKEN } from '@/constants';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constants';
 
 class SetCookie {
   private readonly cookieOptions: CookieOptions;
@@ -25,7 +25,8 @@ class SetCookie {
       ...this.cookieOptions,
       maxAge: 1000 * 60 * 60 * 24 * 3, // 3 дня
     };
+    return res.cookie(REFRESH_TOKEN, value, cookieOptions);
   }
 }
 
-export const setCookie = new SetCookie();
+export const setCookie: SetCookie = new SetCookie();
