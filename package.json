@@ -31,6 +31,7 @@
     "@nestjs/event-emitter": "^3.0.1",
     "@nestjs/jwt": "^11.0.0",
     "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/serve-static": "^5.0.3",
     "@nestjs/swagger": "^11.2.0",
     "@nrwl/devkit": "^19.8.4",
     "@prisma/client": "^6.7.0",
@@ -43,7 +44,8 @@
     "date-fns": "^4.1.0",
     "prisma": "^6.7.0",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "sharp": "^0.34.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
@@ -58,7 +60,9 @@
     "@types/cookie-parser": "^1.4.8",
     "@types/date-fns": "^2.6.3",
     "@types/express": "^5.0.0",
+    "@types/fs-extra": "^11.0.4",
     "@types/jest": "^29.5.14",
+    "@types/multer": "^1.4.12",
     "@types/node": "^22.15.3",
     "@types/supertest": "^6.0.2",
     "eslint": "^9.18.0",

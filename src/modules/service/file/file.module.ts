@@ -1,11 +1,20 @@
+import { path } from 'app-root-path';
 import { Module } from '@nestjs/common';
-import { FileService } from './file.service';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { UPLOAD_FOLDER } from '@/constants';
 import { FileController } from './file.controller';
-import { FileRepository } from './file.repository';
+import { FileService } from './file.service';
+import { ConvertService } from './convert.service';
 
 @Module({
+  imports: [
+    ServeStaticModule.forRoot({
+      rootPath: `${path}/${UPLOAD_FOLDER}`,
+      serveRoot: '/static',
+    }),
+  ],
   controllers: [FileController],
-  providers: [FileService, FileRepository],
+  providers: [FileService, ConvertService],
   exports: [FileService],
 })
 export class FileModule {}
