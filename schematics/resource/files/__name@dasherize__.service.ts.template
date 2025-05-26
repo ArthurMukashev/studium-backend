@@ -1,13 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { MyLogger } from '@/common';
+import { MyLogger, PrismaService } from '@/common';
 import { <%= classify(name) %>Repository } from './<%= dasherize(name) %>.repository';
 
 @Injectable()
 export class <%= classify(name) %>Service {
+  private readonly repository: <%= camelize(name) %>Repository;
+
   constructor(
-    private readonly <%= camelize(name) %>Repository: <%= classify(name) %>Repository,
+    private readonly prisma: PrismaService,
     private logger: MyLogger,
   ) {
+      this.repository = new <%= camelize(name) %>Repository(prisma);
       this.logger.setContext(<%= classify(name) %>Service.name);
   }
 }
