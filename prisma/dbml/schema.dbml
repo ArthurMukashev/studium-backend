@@ -5,7 +5,7 @@
 Table User {
   id Int [pk, increment]
   role_id Int [not null]
-  email String [not null]
+  email String [unique, not null]
   password String [not null]
   is_superadmin Boolean [not null, default: false]
   name String

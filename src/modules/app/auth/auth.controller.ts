@@ -1,10 +1,10 @@
 import type { Response } from 'express';
-import { LoginDto, RegisterDto } from './dto';
 import { Controller, Get, Post, Body, Res, HttpStatus } from '@nestjs/common';
 import { ApiCookieAuth, ApiOperation } from '@nestjs/swagger';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constants';
 import { Public } from '@/decorators';
 import { clearCookie } from '@/lib';
+import type { LoginDto, RegisterDto } from './dto';
 import { AuthService } from './auth.service';
 
 @Controller()
