@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { ScheduleModule } from '@nestjs/schedule';
 import { JwtModule } from '@nestjs/jwt';
+import { BasicCommand } from '@/commands';
 import { JwtAuthModule, LoggerModule, PrismaModule } from '@/common';
 import { AuthGuard, RolesGuard } from '@/guards';
 import { RefreshTokenMiddleware } from '@/middlewares';
@@ -32,6 +33,7 @@ import { AdminRoutingModule, AppRoutingModule, ClientRoutingModule, ServiceRouti
       provide: APP_GUARD,
       useClass: RolesGuard,
     },
+    BasicCommand,
   ],
 })
 export class AppModule implements NestModule {
